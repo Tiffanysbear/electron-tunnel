@@ -1,0 +1,11 @@
+{
+  "appId": "com.xxx.xxx",
+  "copyright": "Copyright©2010-2017",
+  "win": {
+    "icon": "./build/icon.ico"
+  },
+  "nsis": {
+    "oneClick": false,
+    "runAfterFinish": false
+  }
+}
