@@ -1,3 +1,8 @@
+/**
+ * 调用主进程中的事件
+ * @type {Object}
+ */
+
 const {ipcRenderer} = require('electron');
 
 const eventsMap = {};

@@ -2,9 +2,9 @@
 
 # Motivition
 
-* 如果想一套代码同时能跑在web环境和electron环境中，就需要在代码中先判断环境，再分别写对应的逻辑。每次写到electron环境下的逻辑，又要区分渲染进程和主进程，因为有些事只能渲染进程做，有些事只能主进程做。所以，我希望能将这些抽象出来，某个方法，只能在electron环境下被调用，并且不需要关心在什么进程下，web只要判断环境，调不同的方法就行，不需要关心和electron的交互。
-* 如果，我需要快速的开启另一个electron的项目，我希望我web里的代码能轻易的获取到electron的能力，而不是重新开始编写，这个时候，我希望有一层对electron能力的封装。
-* 团队内有些成员对web很熟悉，但是对electron不是很了解，如果加入项目，就需要去学习electron的知识，这个时候，如果能有一个库列出了所有electron能做的事，你只需要调用，无需关心它是怎么实现的，能很大程度提高开发效率。
+* 无需区分进程。如果想一套代码同时能跑在web环境和electron环境中，就需要在代码中先判断环境，再分别写对应的逻辑。每次写到electron环境下的逻辑，又要区分渲染进程和主进程，因为有些事只能渲染进程做，有些事只能主进程做。所以，我希望能将这些抽象出来，某个方法，只能在electron环境下被调用，并且不需要关心在什么进程下，web只要判断环境，调不同的方法就行，不需要关心和electron的交互。
+* 快速迭代。如果需要快速的开启另一个electron的项目，我希望我web里的代码能轻易的获取到electron的能力，而不是重新开始编写，这个时候，我希望有一层对electron能力的封装。
+* 团队合作。团队内有些成员对web很熟悉，但是对electron不是很了解，如果能有一个库列出了所有electron能做的事，你只需要调用，无需关心它是怎么实现的，能很大程度提高开发效率。
 
 
 
@@ -19,22 +19,6 @@
 在load web页面的时候，有个webPreferences配置，我们在这里预加载一个js文件，就是electron-bridge.js
 
 这个文件拥有node的能力，并且它是属于渲染进程的，所以它能做渲染进程里的事, 也能跟主进程通讯。
-
-```flow
-st=>start: start
-op0=>operation: index.js去调用bridge.js暴露出来的方法, ElectronBridge.setFullScreen()
-op1=>operation: bridge.js通过ipcRender告诉ipacMain做什么,并把回调暂存起来
-op2=>operation:  主进程做完告诉bridge.js做完了，发送数据
-op4=>operation:  bridge.js带上收到的数据,执行暂存的回调
-op3=>operation:  bridge.js直接做完，触发回调
-cond=>condition: bridge.js判断是不是主进程做的事？
-e=>end: end
-
-st->op0->cond
-cond(yes)->op1->op2->op4->e
-cond(no)->op3->e
-```
-
 
 
 # Let's do it

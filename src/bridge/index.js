@@ -1,10 +1,9 @@
 console.info('loading bridge.js!');
 
-require('./env.js');
+require('./browserEnv.js');
 const fs = require('fs');
 const os = require('os');
 const {webFrame} = require('electron');
-const tasks = require('./tasks/index.js');
 const {
   screen,
   download,
@@ -15,7 +14,6 @@ const {
 window.ElectronBridge = {
   os,
   fs,
-  tasks,
   screen,
   download,
   webFrame,

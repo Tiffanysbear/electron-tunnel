@@ -1,3 +1,7 @@
+/**
+ * 在本地起一个服务器，将public文件夹当做静态资源
+ */
+
 const express = require('express');
 const portfinder = require('portfinder');
 const path = require('path');
@@ -16,11 +20,11 @@ module.exports = function() {
 
       config.expressServerPort = port;
 
-      expressServer.use(express.static(path.join(__dirname, '../public')));
-      logger.info(`static server path: ${path.join(__dirname, '../public')}`);
+      expressServer.use(express.static(path.join(__dirname, '../../public')));
+      logger.info(`static server path: ${path.join(__dirname, '../../public')}`);
 
       expressServer.listen(port, '127.0.0.1', () => {
-        logger.info(`expressServer.js: express server is starting in port: ${port}`);
+        logger.info(`express server is starting in port: ${port}`);
         resolve(port);
       });
     });

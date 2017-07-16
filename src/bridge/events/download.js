@@ -2,46 +2,27 @@
  * 下载
  */
 const fs = require('fs-extra');
-const path = require('path');
 const _ = require('lodash');
-const unzip = require('unzip');
 const download = require('download');
-const {isFunction} = require('../../util/typeCheck.js');
 
 /**
- * 下载器
- * @param  {[type]} url          [description]
- * @param  {[type]} dest         [description]
- * @param  {Object} [options={}] [description]
- * @param  {[type]} [cb=(]       [description]
+ * [downloader description]
+ * @param  {[type]} url          [url]
+ * @param  {[type]} dest         [下载路径]
+ * @param  {Object} [options={}] [download库配置项]
+ * @param  {[type]} [cb=(]       [回调函数，会被不断处罚，接受(当前进度，下载路径)]
  * @return {[type]}              [description]
  */
-
-function downloader(url, dest, options, cb) {
-  //允许省略最后两个参数，或者省略其中一个
-  if (!options && !cb) { //最后两个参数都不存在
-    options = {};
-    cb = () => {};
-  } else if (options && !cb) { //只存在第三个参数
-    if (isFunction(options)) {
-      cb = options;
-      options = {};
-    } else {
-      cb = () => {};
-    }
-  }
-
+function downloader({
+  url,
+  dest,
+  options = {},
+  cb = () => {}
+}) {
   const throttleCb = _.throttle(cb, 300); //下载中300毫秒触发一次回调
+  fs.ensureDirSync(dest);
 
-  let realDestdir;
-  if (__ASAR__) {
-    realDestdir = path.join(__ASAR_UNPACK__, 'src/public', dest);
-  } else {
-    realDestdir = path.join(__dirname, '../../public', dest);
-  }
-  fs.ensureDirSync(realDestdir);
-
-  return download(url, realDestdir, options)
+  return download(url, dest, options)
     .on('response', res => {
       const len = parseInt(res.headers['content-length'], 10) || 0; //总大小
       let sum = 0,
@@ -56,41 +37,13 @@ function downloader(url, dest, options, cb) {
           progress = progress > 100 ? 100 : progress;
         }
 
-        throttleCb(progress, realDestdir);
+        throttleCb(progress, dest);
       });
 
       res.on('end', () => {
-        cb(100, realDestdir);
+        cb(100, dest);
       });
     });
 }
 
-//判断public文件夹下的某个资源是否存在
-function isAssetExists(assetPath = '') {
-  if (__ASAR__) {
-    return fs.existsSync(path.join(__ASAR_UNPACK__, 'src/public', assetPath));
-  } else {
-    return fs.existsSync(path.join(__dirname, '../../public', assetPath));
-  }
-}
-
-//解压缩
-function unZip(from, to) {
-  return new Promise((resolve, reject) => {
-    fs
-      .createReadStream(from)
-      .pipe(unzip.Extract({ path: to }))
-      .on('close', () => {
-        resolve();
-      })
-      .on('error', (err) => {
-        reject(err);
-      });
-  });
-}
-
-module.exports = {
-  isAssetExists,
-  downloader,
-  unZip
-};
+module.exports = downloader;

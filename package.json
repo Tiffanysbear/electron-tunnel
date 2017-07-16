@@ -2,11 +2,11 @@
   "name": "electron-bridge",
   "version": "1.0.0",
   "description": "# Motivition",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
     "clean": "rm -rf dist",
     "start": "NODE_ENV=dev electron src/main.js",
-    "start:server": "NODE_ENV=dev LOCAL_SERVER=true electron src/main.js",
+    "start:server": "NODE_ENV=dev LOCAL_SERVER=3000 electron src/main.js",
     "nodemon": "nodemon --watch src -x \"npm run start\"",
     "nodemon:server": "nodemon --watch src -x \"npm run start:server\"",
     "prebuild": "npm run clean",
@@ -32,9 +32,7 @@
     "fs-extra": "^3.0.1",
     "lodash": "^4.17.4",
     "log4js": "^1.1.1",
-    "md5": "^2.2.1",
-    "portfinder": "^1.0.13",
-    "unzip": "^0.1.11"
+    "portfinder": "^1.0.13"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

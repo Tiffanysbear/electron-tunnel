@@ -1,3 +1,8 @@
+/**
+ * 监听渲染进程对主进程的调用，执行完任务后通知渲染进程
+ */
+
+
 const {ipcMain} = require('electron');
 const eventsList = require('../events/index.js');
 const {isPromise} = require('../util/typeCheck.js');
@@ -10,7 +15,7 @@ ipcMain.on('regist-event', (event, arg) => {
   const nativeEvent = eventsList[arg.eventName];
   if (nativeEvent) {
     const result =  nativeEvent(app, win, arg.params);
-    if (isPromise(result)) {
+    if (isPromise(result)) { //如果返回promise
       result.then(res => {
         event.sender.send('fire-event', {
           stamp: arg.stamp,
