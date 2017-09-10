@@ -1,6 +1,7 @@
 ## electron-bridge
 
 ### Usage
+* `npm i electron-tunnel`
 
 * create events
 
@@ -76,16 +77,16 @@ $print.addEventListener('click', function() {
 
 ### API
 
-* `registEvent(events: Object, cusParams: Array)`
+#### `registEvent(events: Object, cusParams: Array)`
 
-`event`s: events object, key is the name called by  callEvent, value is the function
+* `event`s: events object, key is the name called by  callEvent, value is the function
 
-`cusParams`: will be spreaded and pass to event function
+* `cusParams`: will be spreaded and pass to event function
 
-* `callEvent(eventName: String, params: Object)`
+#### `callEvent(eventName: String, params: Object)`
 
-`eventName`: the key of the events object
+* `eventName`: the key of the events object
 
-`params`: will be passed to event function as the first parameter
+* `params`: will be passed to event function as the first parameter
 
-return Promise;
+* return Promise
