@@ -1,5 +1,5 @@
 {
-  "name": "electron-bridge",
+  "name": "electron-tunnel",
   "version": "1.0.0",
   "description": "# Motivition",
   "main": "./src/registEvent.js",

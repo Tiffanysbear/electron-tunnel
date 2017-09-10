@@ -33,7 +33,7 @@ const electron = require('electron');
 const { app, BrowserWindow } = electron;
 const events = require('./events/index.js');
 
-const registEvent = require('electron-bridge/registEvent');
+const registEvent = require('electron-tunnel/registEvent');
 
 app.on('ready', () => {
   const win = new BrowserWindow();
@@ -56,7 +56,7 @@ app.on('ready', () => {
 * call event in render progress
 
 ```javascript
-const callEvent = require('electron-bridge/callEvent');
+const callEvent = require('electron-tunnel/callEvent');
 
 var $setFullScreenBtn = document.querySelector('.set-full-screen');
 var $print = document.querySelector('.print');
