@@ -5,31 +5,20 @@ const path = require('path');
 
 const registEvent = require('../../src/registEvent.js');
 
-let win, url;
-
 app.on('ready', () => {
-  //加载bridge脚本
-  win = new BrowserWindow({
-    webPreferences: {
-      preload: path.join(__dirname, '../../src/callEvent.js'),
-    }
-  });
-
-  //关闭退出
-  win.on('closed', function() {
-    win = null;
-    app.quit();
-  });
+  const win = new BrowserWindow();
 
   //监听web对原生事件的调用
   registEvent(events, [app, win]);
 
-  //创建页面
-  url = `file://${__dirname}/index.html`;
-
-  win.loadURL(url);
+  win.loadURL(`file://${__dirname}/index.html`);
 
   win.webContents.openDevTools();
+
+  win.on('closed', function() {
+    win = null;
+    app.quit();
+  });
 });
 
 // Quit when all windows are closed.

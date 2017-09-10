@@ -12,10 +12,10 @@ function quitFullScreen(params, app, win) {
   return win.setFullScreen(false);
 }
 
-function asyncEvent() {
+function asyncEvent(params) {
   return new Promise((resolve) => {
     setTimeout(() => {
-      console.log('here is main progress');
+      console.log(params.word);
       resolve();
     }, 3000);
   });

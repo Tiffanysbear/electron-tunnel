@@ -2,7 +2,7 @@
   "name": "electron-bridge",
   "version": "1.0.0",
   "description": "# Motivition",
-  "main": "index.js",
+  "main": "./src/registEvent.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

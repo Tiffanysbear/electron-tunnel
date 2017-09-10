@@ -14,29 +14,9 @@
     <button class="quit-full-screen">quit-full-screen</button>
   </div>
   <div>
-    <button class="print">print in terminal 3s later</button>
+    <button class="print">print hello world terminal 3s later</button>
   </div>
 
-
-
-  <script type="text/javascript">
-    var $setFullScreenBtn = document.querySelector('.set-full-screen');
-    var $quitFullScreenBtn = document.querySelector('.quit-full-screen');
-    var $print = document.querySelector('.print');
-
-    $setFullScreenBtn.addEventListener('click', function() {
-      window.callEvent('SET_FULL_SCREEN');
-    });
-
-    $quitFullScreenBtn.addEventListener('click', function() {
-      window.callEvent('QUIT_FULL_SCREEN');
-    });
-
-    $print.addEventListener('click', function() {
-      window.callEvent('ASYNC_EVENT').then(() => {
-        console.log('done');
-      });
-    });
-  </script>
+  <script type="text/javascript" src='./index.js'></script>
 </body>
 </html>
