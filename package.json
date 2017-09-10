@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/Hokkaidosunny/electron-tunnel.git"
   },
-  "keywords": [],
+  "keywords": ["electron", "ipcMain", "bridge", "ipcRenderer", "tunnel"],
   "author": "",
   "license": "ISC",
   "bugs": {
