@@ -3,7 +3,7 @@ const { app, BrowserWindow } = electron;
 const events = require('./events/index.js');
 const path = require('path');
 
-const registEvent = require('../../src/registEvent.js');
+const registEvent = require('electron-tunnel/registEvent');
 
 app.on('ready', () => {
   const win = new BrowserWindow();

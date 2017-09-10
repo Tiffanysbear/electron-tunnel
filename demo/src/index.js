@@ -1,4 +1,4 @@
-const callEvent = require('../../src/callEvent.js');
+const callEvent = require('electron-tunnel/callEvent');
 
 var $setFullScreenBtn = document.querySelector('.set-full-screen');
 var $quitFullScreenBtn = document.querySelector('.quit-full-screen');
