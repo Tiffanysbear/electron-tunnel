@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div>
+    <button class="set-full-screen">set-full-screen</button>
+  </div>
+  <div>
+    <button class="quit-full-screen">quit-full-screen</button>
+  </div>
+  <div>
+    <button class="print">print in terminal 3s later</button>
+  </div>
+
+
+
+  <script type="text/javascript">
+    var $setFullScreenBtn = document.querySelector('.set-full-screen');
+    var $quitFullScreenBtn = document.querySelector('.quit-full-screen');
+    var $print = document.querySelector('.print');
+
+    $setFullScreenBtn.addEventListener('click', function() {
+      window.callEvent('SET_FULL_SCREEN');
+    });
+
+    $quitFullScreenBtn.addEventListener('click', function() {
+      window.callEvent('QUIT_FULL_SCREEN');
+    });
+
+    $print.addEventListener('click', function() {
+      window.callEvent('ASYNC_EVENT').then(() => {
+        console.log('done');
+      });
+    });
+  </script>
+</body>
+</html>
