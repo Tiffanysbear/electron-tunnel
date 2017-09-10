@@ -1,4 +1,4 @@
-## electron-bridge
+## electron-tunnel
 
 ### Usage
 * `npm i electron-tunnel`
