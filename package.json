@@ -1,8 +1,7 @@
 {
   "name": "electron-tunnel",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "# Motivition",
-  "main": "./src/registEvent.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
