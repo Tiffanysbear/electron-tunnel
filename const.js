@@ -1,4 +1,0 @@
-module.exports = {
-  FIRE_CHANNEL: 'FIRE_CHANNEL',
-  CALLBACK_CHANNEL: 'CALLBACK_CHANNEL'
-};

@@ -3,17 +3,32 @@
   "version": "1.0.1",
   "description": "# Motivition",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Hokkaidosunny/electron-tunnel.git"
   },
-  "keywords": ["electron", "ipcMain", "bridge", "ipcRenderer", "tunnel"],
+  "keywords": [
+    "electron",
+    "ipcMain",
+    "bridge",
+    "ipcRenderer",
+    "tunnel"
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Hokkaidosunny/electron-tunnel/issues"
   },
-  "homepage": "https://github.com/Hokkaidosunny/electron-tunnel#readme"
+  "homepage": "https://github.com/Hokkaidosunny/electron-tunnel#readme",
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1"
+  },
+  "dependencies": {
+    "electron": "^1.6.10"
+  }
 }
