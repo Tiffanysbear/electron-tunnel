@@ -3,13 +3,15 @@ const { app, BrowserWindow } = electron;
 const events = require('./events/index.js');
 const path = require('path');
 
-const registEvent = require('electron-tunnel/registEvent');
+const {registEvents, ipcMainSetup} = require('../../dist/index.js');
+
+ipcMainSetup();
 
 app.on('ready', () => {
   const win = new BrowserWindow();
 
   //监听web对原生事件的调用
-  registEvent(events, [app, win]);
+  registEvents(events, [app, win]);
 
   win.loadURL(`file://${__dirname}/index.html`);
 

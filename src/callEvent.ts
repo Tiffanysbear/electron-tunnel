@@ -18,20 +18,22 @@ interface EventsStack {
 const eventsStack: EventsStack = {};
 let id: number = 0;
 
-ipcRenderer.on(CALLBACK_CHANNEL, (e: Electron.Event , arg: Arg) => {
-  const event = eventsStack[arg.id];
-  if (event) {
-    if (arg.err) {
-      event.reject(new Error(arg.err));
-    } else {
-      event.resolve(arg.payload);
+export function ipcRendererSetup() {
+  ipcRenderer.on(CALLBACK_CHANNEL, (e: Electron.Event , arg: Arg) => {
+    const event = eventsStack[arg.id];
+    if (event) {
+      if (arg.err) {
+        event.reject(new Error(arg.err));
+      } else {
+        event.resolve(arg.payload);
+      }
+      delete eventsStack[arg.id];
     }
-    delete eventsStack[arg.id];
-  }
-});
+  });
+}
 
 // 调用原生事件
-function callEvent(eventName: string, params: object = {}) {
+export function callEvent(eventName: string, params: object = {}) {
   id++;
 
   return new Promise((resolve, reject) => {
@@ -46,5 +48,3 @@ function callEvent(eventName: string, params: object = {}) {
     ipcRenderer.send(FIRE_CHANNEL, event); // 发送事件
   });
 }
-
-export default callEvent;

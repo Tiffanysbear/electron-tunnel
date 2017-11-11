@@ -24,45 +24,45 @@ let eventsList: EventList,
     cusParams: Array<object>;
 
 // 监听对原生的调用
-ipcMain.on(FIRE_CHANNEL, (event: Electron.Event, arg: Arg) => {
-  const {id, eventName, params} = arg;
-  const nativeEvent = eventsList[eventName];
+export function ipcMainSetup() {
+  ipcMain.on(FIRE_CHANNEL, (event: Electron.Event, arg: Arg) => {
+    const {id, eventName, params} = arg;
+    const nativeEvent = eventsList[eventName];
 
-  // 主进程不支持的事件
-  if (!nativeEvent) {
-    event.sender.send(CALLBACK_CHANNEL, {
-      id,
-      err: 'event not support'
-    });
-
-    return;
-  }
-
-  // 主进程支持的事件
-  const result =  nativeEvent(params, ...cusParams);
-  if (isPromise(result)) { // 如果返回promise
-    result.then(res => {
+    // 主进程不支持的事件
+    if (!nativeEvent) {
       event.sender.send(CALLBACK_CHANNEL, {
         id,
-        payload: res
+        err: 'event not support'
       });
-    }).catch(err => {
+
+      return;
+    }
+
+    // 主进程支持的事件
+    const result =  nativeEvent(params, ...cusParams);
+    if (isPromise(result)) { // 如果返回promise
+      result.then(res => {
+        event.sender.send(CALLBACK_CHANNEL, {
+          id,
+          payload: res
+        });
+      }).catch(err => {
+        event.sender.send(CALLBACK_CHANNEL, {
+          id,
+          err: err.message
+        });
+      });
+    } else {
       event.sender.send(CALLBACK_CHANNEL, {
         id,
-        err: err.message
+        payload: result
       });
-    });
-  } else {
-    event.sender.send(CALLBACK_CHANNEL, {
-      id,
-      payload: result
-    });
-  }
-});
+    }
+  });
+}
 
-function registEvents(events: EventList, params: Array<object>) {
+export function registEvents(events: EventList, params: Array<object>) {
   eventsList = events;
   cusParams = params;
 }
-
-export default registEvents;

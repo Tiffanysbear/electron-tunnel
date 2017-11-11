@@ -34,13 +34,13 @@ const electron = require('electron');
 const { app, BrowserWindow } = electron;
 const events = require('./events/index.js');
 
-const registEvent = require('electron-tunnel/registEvent');
-
+const {registEvents, ipcMainSetup} = require('electron-tunnel');
+ipcMainSetup();
 app.on('ready', () => {
   const win = new BrowserWindow();
 
   //监听web对原生事件的调用
-  registEvent(events, [app, win]);
+  registEvents(events, [app, win]);
 
   win.loadURL(`file://${__dirname}/index.html`);
 
@@ -57,8 +57,8 @@ app.on('ready', () => {
 * call event in render progress
 
 ```javascript
-const callEvent = require('electron-tunnel/callEvent');
-
+const {callEvent, ipcRendererSetup} = require('electron-tunnel');
+ipcRendererSetup();
 var $setFullScreenBtn = document.querySelector('.set-full-screen');
 var $print = document.querySelector('.print');
 
@@ -77,7 +77,7 @@ $print.addEventListener('click', function() {
 
 ### API
 
-#### `registEvent(events: Object, cusParams: Array)`
+#### `registEvents(events: Object, cusParams: Array)`
 
 * `event`s: events object, key is the name called by  callEvent, value is the function
 
