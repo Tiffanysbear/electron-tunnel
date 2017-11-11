@@ -1,5 +1,6 @@
-import { ipcRenderer, Event } from 'electron';
+import * as Electron from 'electron';
 import { FIRE_CHANNEL, CALLBACK_CHANNEL } from './const';
+const {ipcRenderer} = Electron;
 
 interface Arg {
   id: string;
@@ -15,9 +16,9 @@ interface EventsStack {
 }
 
 const eventsStack: EventsStack = {};
-let id = 0;
+let id: number = 0;
 
-ipcRenderer.on(CALLBACK_CHANNEL, (e: Event , arg: Arg) => {
+ipcRenderer.on(CALLBACK_CHANNEL, (e: Electron.Event , arg: Arg) => {
   const event = eventsStack[arg.id];
   if (event) {
     if (arg.err) {
@@ -30,12 +31,12 @@ ipcRenderer.on(CALLBACK_CHANNEL, (e: Event , arg: Arg) => {
 });
 
 // 调用原生事件
-function callEvent(eventName: string, params = {}) {
+function callEvent(eventName: string, params: object = {}) {
   id++;
 
   return new Promise((resolve, reject) => {
     const event = Object.assign(
-      { id },
+      { id: String(id) },
       { eventName },
       { params }
     );
@@ -46,10 +47,4 @@ function callEvent(eventName: string, params = {}) {
   });
 }
 
-if (window) {
-  window.callEvent = callEvent;
-}
-
-if (typeof exports === 'object' && typeof module === 'object') {
-  module.exports = callEvent;
-}
+export default callEvent;
