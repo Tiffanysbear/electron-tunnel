@@ -1,6 +1,6 @@
 {
   "name": "electron-tunnel",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "./dist/index.js",
   "description": "# Motivition",
   "scripts": {
@@ -11,6 +11,12 @@
     "type": "git",
     "url": "git+https://github.com/Hokkaidosunny/electron-tunnel.git"
   },
+  "files": [
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "dist"
+  ],
   "keywords": [
     "electron",
     "ipcMain",

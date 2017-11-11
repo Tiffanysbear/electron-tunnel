@@ -1,4 +1,4 @@
-var {callEvent, ipcRendererSetup} = require('../../dist');
+var {callEvent, ipcRendererSetup} = require('electron-tunnel');
 var $setFullScreenBtn = document.querySelector('.set-full-screen');
 var $quitFullScreenBtn = document.querySelector('.quit-full-screen');
 var $print = document.querySelector('.print');
